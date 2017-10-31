@@ -159,10 +159,25 @@ class PhoneCatalogue {
     constructor(options) {
         this._cart = options.cart;
         this._el = options.el;
+        this._template = document.querySelector('#phone-catalogue-template').innerHTML;
+        this._templateFunction = _.template(this._template);
         this._render(this._getPhones());
         this._el.addEventListener("click", this._onPhoneClick.bind(this));
     }
+    on(eventName, handler){
+        this._el.addEventListener(eventName, handler)
+    }
 
+    off(eventName, handler){
+        this._el.removeEventListener(eventName, handler)
+    }
+
+    trigger(eventName, data){
+        let myEvent = new CustomEvent(eventName, {
+            detail: data
+        });
+        this._el.dispatchEvent(myEvent);
+    }
     _onPhoneClick(event) {
         let phonelink = event.target.closest('[data-element="phone-link"]');
         if (!phonelink) {
@@ -171,33 +186,13 @@ class PhoneCatalogue {
         let phoneItemElement = phonelink.closest('[data-element="phone-item"]');
         let selectedPhoneId = phoneItemElement.dataset.phoneId;
 
-        let myEvent = new CustomEvent('phoneSelected', {
-            detail: selectedPhoneId
-        });
-        this._el.dispatchEvent(myEvent);
+        this.trigger('phoneSelected',selectedPhoneId);
     }
 
     _render(phones) {
-        let html = `<ul class="phones">`;
-        phones.forEach((phone) => {
-            html += `
-                <li class="thumbnail" 
-                    data-element="phone-item" 
-                    data-phone-id="${phone.id}">
-                    <a href="#!/phones/${phone.id}" 
-                       class="thumb"
-                       data-element="phone-link">
-                       <img alt="${phone.name}" 
-                             src="${phone.imageUrl}">
-                    </a>
-                    <a href="#!/phones/${phone.id}"
-                       data-element="phone-link">
-                        ${phone.name}
-                    </a>
-                    <p>${phone.snippet}</p>
-                </li>`;
+        let html = this._templateFunction({
+            phones: phones
         });
-        html += `</ul>`;
         this._el.innerHTML = html;
     }
 

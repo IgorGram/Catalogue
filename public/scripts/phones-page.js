@@ -10,7 +10,7 @@ class PhonesPage{
         this._catalogue = new PhoneCatalogue({
             el: this._el.querySelector('[data-component="phone-catalogue"]')
         });
-        this._catalogue._el.addEventListener('phoneSelected', (event) => {
+        this._catalogue.on('phoneSelected', (event) => {
             this._cart.addItem({ id: event.detail });
         })
     }
