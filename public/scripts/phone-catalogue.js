@@ -155,8 +155,9 @@ let phonesFromServer = [
     }
 ];
 
-class PhoneCatalogue {
+class PhoneCatalogue extends Component{
     constructor(options) {
+        super(options.el);
         this._cart = options.cart;
         this._el = options.el;
         this._template = document.querySelector('#phone-catalogue-template').innerHTML;
@@ -164,20 +165,7 @@ class PhoneCatalogue {
         this._render(this._getPhones());
         this._el.addEventListener("click", this._onPhoneClick.bind(this));
     }
-    on(eventName, handler){
-        this._el.addEventListener(eventName, handler)
-    }
 
-    off(eventName, handler){
-        this._el.removeEventListener(eventName, handler)
-    }
-
-    trigger(eventName, data){
-        let myEvent = new CustomEvent(eventName, {
-            detail: data
-        });
-        this._el.dispatchEvent(myEvent);
-    }
     _onPhoneClick(event) {
         let phonelink = event.target.closest('[data-element="phone-link"]');
         if (!phonelink) {
