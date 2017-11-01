@@ -5,7 +5,7 @@ var file = new static.Server('.', {
 });
 
 function accept(request,response) {
-    if (request.url.indexOf('/data/') ===0){
+    if (request.url.indexOf('/data/') === 0){
         setTimeout(() => {
             file.serve(request, response);
         },3000);

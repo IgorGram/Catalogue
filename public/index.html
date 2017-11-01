@@ -5,6 +5,7 @@
     <title>Title</title>
     <script src="https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)"></script>
     <script src="component.js" defer></script>
+    <script src="scripts/services/Http-service.js" defer></script>
     <script src="scripts/phone-catalogue.js" defer></script>
     <script src="scripts/phones-page.js" defer></script>
     <script src="scripts/shopping-cart.js" defer></script>
@@ -58,7 +59,7 @@
     <button data-element="back-button">back to catalogue</button>
     <button data-element="add-to-basket">add to basket</button>
     <img class="phone"
-         src="<%= phone.images[0]%>">
+         src="<%= phone.images[0] %>">
 
     <h1><%= phone.name %></h1>
 
@@ -77,7 +78,7 @@
         <% phones.forEach((phone) => { %>
         <li class="thumbnail"
             data-element="phone-item"
-            data-phone-id="<%= phone.id %> ">
+            data-phone-id="<%= phone.id %>">
             <a href="#!/phones/<%= phone.id %> "
                class="thumb"
                data-element="phone-link">
