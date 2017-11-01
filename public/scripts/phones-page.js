@@ -20,6 +20,16 @@ class PhonesPage{
         this._viewer = new PhoneViewer({
              el: this._el.querySelector('[data-component="phone-viewer"]')
         });
+
+        this._viewer.on('back', () => {
+            this._viewer.hide();
+            this._catalogue.show();
+        });
+
+        this._viewer.on('add', (event) => {
+            let phoneDetails = event.detail;
+            this._cart.addItem(phoneDetails);
+        })
     }
 
     _getPhoneDetails(phoneId){
