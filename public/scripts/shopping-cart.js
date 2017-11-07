@@ -9,6 +9,7 @@ class ShoppingCart{
         this._render();
     }
 
+
     addItem(item){
         this._items.push(item);
 

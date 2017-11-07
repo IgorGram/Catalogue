@@ -8,7 +8,11 @@ class PhoneCatalogue extends Component{
         this._template = document.querySelector('#phone-catalogue-template').innerHTML;
         this._templateFunction = _.template(this._template);
         this._el.addEventListener("click", this._onPhoneClick.bind(this));
-        this._loadPhones();
+    }
+    showPhones(phones){
+        this._phones = phones;
+        this._render();
+        this.show();
     }
 
     _onPhoneClick(event) {
@@ -29,10 +33,4 @@ class PhoneCatalogue extends Component{
         this._el.innerHTML = html;
     }
 
-    _loadPhones() {
-        HttpService.getJSON('/data/phones/phones.json', (phones) => {
-            this._phones = phones;
-            this._render();
-        });
-    }
 }
